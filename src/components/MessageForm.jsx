@@ -2,20 +2,30 @@ import React from 'react';
 import styled from 'styled-components';
 
 const MessageInputsWrapper = styled.div`
-  margin: 20px 0 0 0;
-  padding: 10px 10px 10px 10px;
-  height: 150px;
-  width: 90%;
+  margin-top: 10px;
   border: 2px solid black;
   border-radius: 5px;
   display: flex;
   flex-direction: column;
 `;
 
+const FormGridWrapper = styled.div`
+  grid-area: main;
+  display: grid;
+  grid-template-columns: minmax(1.2rem, 1fr) minmax(auto, 600px) minmax(
+      1.2rem,
+      1fr
+    );
+`;
+
+const FormContent = styled.div`
+  grid-column: 2;
+`;
+
 const Form = styled.form`
   display: flex;
   flex-direction: column;
-  height: 200px;
+  min-height: 200px;
   justify-content: space-around;
 `;
 
@@ -48,24 +58,28 @@ class MessageForm extends React.Component {
   render() {
     return (
       <MessageInputsWrapper>
-        <Form onSubmit={this.handleSubmit}>
-          <StyledInput
-            type="text"
-            name="username"
-            value={this.state.username}
-            placeholder="username"
-            onChange={this.handleChange}
-            required
-          />
-          <StyledInput
-            name="message"
-            value={this.state.message}
-            placeholder="message"
-            onChange={this.handleChange}
-            required
-          ></StyledInput>
-          <SendButton>Send</SendButton>
-        </Form>
+        <FormGridWrapper>
+          <FormContent>
+            <Form onSubmit={this.handleSubmit}>
+              <StyledInput
+                type="text"
+                name="username"
+                value={this.state.username}
+                placeholder="username"
+                onChange={this.handleChange}
+                required
+              />
+              <StyledInput
+                name="message"
+                value={this.state.message}
+                placeholder="message"
+                onChange={this.handleChange}
+                required
+              ></StyledInput>
+              <SendButton>Send</SendButton>
+            </Form>
+          </FormContent>
+        </FormGridWrapper>
       </MessageInputsWrapper>
     );
   }
