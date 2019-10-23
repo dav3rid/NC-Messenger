@@ -16,9 +16,9 @@ io.on('connection', socket => {
     description: ' users connected'
   });
 
-  socket.on('test', data => {
+  socket.on('add message', data => {
     console.log(data);
-    socket.emit('mount test', 'hello');
+    io.sockets.emit('add message', data);
   });
 
   // WELCOME MESSAGE ONLY TO NEW CONNECTED USER
@@ -48,6 +48,6 @@ io.on('connection', socket => {
   });
 });
 
-http.listen(3001, () => {
-  console.log('listening on port 3001');
+http.listen(4001, () => {
+  console.log('listening on port 4001');
 });
