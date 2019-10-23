@@ -1,6 +1,15 @@
-.App {
+/* .App {
   height: 100vh;
   display: grid;
   grid-template-rows: auto 1fr 200px;
   justify-items: center;
+} */
+
+.App {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  grid-template-areas:
+    'header'
+    'main';
+  min-height: 100vh;
 }

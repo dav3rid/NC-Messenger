@@ -5,6 +5,21 @@ import Header from './components/Header';
 import MessageList from './components/MessageList';
 import MessageForm from './components/MessageForm';
 import socketIOClient from 'socket.io-client';
+import styled from 'styled-components';
+
+const MainGridWrapper = styled.main`
+  grid-area: main;
+  display: grid;
+  grid-template-columns: minmax(1.2rem, 1fr) minmax(auto, 600px) minmax(
+      1.2rem,
+      1fr
+    );
+`;
+
+const MainContent = styled.div`
+  grid-column: 2;
+  padding-top: 20px;
+`;
 
 class App extends React.Component {
   state = {
@@ -21,15 +36,20 @@ class App extends React.Component {
   // SENDING SOCKETS
   send = () => {
     const socket = socketIOClient(this.state.endpoint);
-    socket.emit('add message', this.state.messages);
+    socket.emit(
+      'add message',
+      this.state.messages[this.state.messages.length - 1]
+    );
   };
 
   // ADDING THE FUNCTION
   componentDidMount = () => {
     const socket = socketIOClient(this.state.endpoint);
     setInterval(this.send(), 1000);
-    socket.on('add message', messages => {
-      this.setState({ messages });
+    socket.on('add message', message => {
+      this.setState(currentState => {
+        return { messages: [...currentState.messages, message] };
+      });
     });
   };
 
@@ -38,8 +58,12 @@ class App extends React.Component {
     return (
       <div className="App">
         <Header />
-        <MessageList messages={this.state.messages} />
-        <MessageForm updateMessages={this.updateMessages} />
+        <MainGridWrapper>
+          <MainContent>
+            <MessageList messages={this.state.messages} />
+            <MessageForm updateMessages={this.updateMessages} />
+          </MainContent>
+        </MainGridWrapper>
       </div>
     );
   }
