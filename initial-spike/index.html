@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Spikage</title>
+    <!-- THIS SCRIPT FILE IS IN NODE_MODULES -->
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      // THIS CREATES INDIVIDUAL USER SOCKET
+      const socket = io();
+
+      // // HANDLE TEST CUSTOM EVENT FROM SERVER
+      // socket.on('tester event', data => {
+      //   // PARSING SORTED OUT FOR US
+      //   document.write(data.description);
+      // });
+
+      // HANDLE NEW USER JOINING
+      socket.on('new client connect', data => {
+        document.body.innerHTML = '';
+        document.write(data.description);
+      });
+
+      // HANDLE BROADCAST EVENT FROM SERVER
+      socket.on('broadcast', data => {
+        document.body.innerHTML = '';
+        document.write(data.description);
+      });
+
+      // TEST CUSTOM EVENT TO SERVER
+      socket.emit('tester client event', 'this message came from the client');
+    </script>
+  </head>
+
+  <body>
+    HELLO
+  </body>
+</html>
