@@ -22,6 +22,7 @@ const MessageGridWrapper = styled.div`
 const MessageContent = styled.div`
   grid-column: 2;
   padding-top: 20px;
+  padding-bottom: 30px;
 `;
 
 const MessageList = props => {
